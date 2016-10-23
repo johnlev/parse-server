@@ -19,6 +19,7 @@ function calculateLeague(user, survey) {
 	var intensity = survey["intensity"]
 	return new Promise((fulfill, reject) => {
 		var leagueQuery = new Parse.Query("League")
+		leagueQuery.ascending("Level");
 		// Since we have no survey results, we will choose any league that exists
 		leagueQuery.find({
 			success: function(leagues) {
