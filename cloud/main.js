@@ -3,10 +3,6 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
-Parse.Cloud.define('calculateScore', function(request, response) {
-
-});
-
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
