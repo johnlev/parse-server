@@ -15,12 +15,19 @@ function getRandomInt(min, max) {
 
 // Returns a Promise for completion
 function calculateLeague(user, survey) {
+	var frequency = survey["frequency"]
+	var intensity = survey["intensity"]
 	return new Promise((fulfill, reject) => {
 		var leagueQuery = new Parse.Query("League")
 		// Since we have no survey results, we will choose any league that exists
 		leagueQuery.find({
 			success: function(leagues) {
-				var league = leagues[0];
+				var league = null
+				if (intensity >= leagues.length)
+					league = leagues[leagues.length - 1]
+				else
+					league = leagues[intensity];
+
 				user.set("league", league);
 				fulfill(user);
 			},
@@ -69,7 +76,7 @@ Parse.Cloud.define('onSignUp', function(request, response) {
 	query.get(userId, {
 		useMasterKey: true,
 	}).then((user) => {
-		return chooseProfileImage(user)
+		return chooseProfileImage(user);
 	}).then((user) => {
 		return calculateLeague(user, survey);
 	}).then((user) => {
