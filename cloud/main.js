@@ -37,11 +37,10 @@ function calculateLeague(user, survey) {
 
 function chooseProfileImage(user) {
 	return new Promise((fulfill, reject) => {
-		Parse.Config.get().then(function(config) {
-			var numPics = config.get("numPics")
+		var ProfilePic = Parse.Object.extend("ProfilePic")
+		ProfilePic.count().then(function(numPics) {
 
 			var index = getRandomInt(0, numPics)
-			var ProfilePic = Parse.Object.extend("ProfilePic")
 			var pictureQuery = new Parse.Query(ProfilePic);
 			pictureQuery.equalTo("Index", index);
 			pictureQuery.find({
@@ -65,9 +64,9 @@ function chooseProfileImage(user) {
 Parse.Cloud.define('onSignUp', function(request, response) {
 	// This function will take the survey results, store them in the given user, and then determine league and profile picture
 
-	var userId = request["user"]
+	var userId = request["user"];
 	// We don't know yet what we are gonna ask, so no survey for now
-	var surveyInfo = request["survey"]
+	var surveyInfo = request["survey"];
 
 	var query = new Parse.Query(Parse.User);
 	query.get(userId, {
