@@ -92,30 +92,30 @@ Parse.Cloud.define('calculateAchievements', function(request, response) {
 Parse.Cloud.afterSave(Parse.User,  function(request, response) {
 	var user = request.object
 
-	// var query = request.object.get("pastWorkouts").query();
-	// query.find({
-	// 	success: function(results) {
-	// 		var dictionary = {}
-	// 		for (i in results) {
-	// 			var result = results[i];
-	// 			var type = result.get("activity");
+	var query = request.object.relation("pastWorkouts").query();
+	query.find({
+		success: function(results) {
+			var dictionary = {}
+			for (i in results) {
+				var result = results[i];
+				var type = result.get("activity");
 
-	// 			var num = dictionary[type];
-	// 			if (num == undefined)
-	// 				dictionary[type] = 1;
-	// 			else
-	// 				dictionary[type] = num += 1;
-	// 		}
+				var num = dictionary[type];
+				if (num == undefined)
+					dictionary[type] = 1;
+				else
+					dictionary[type] = num += 1;
+			}
 
-	// 		for (type in dictionary) {
-	// 			user.set(type, dictionary[type]);
-	// 		}
+			for (type in dictionary) {
+				user.set(type, dictionary[type]);
+			}
 
-	// 		response.success();
-	// 	},
-	// 	error: function(err) {
-	// 		response.error(err);
-	// 	}
-	// })
+			response.success();
+		},
+		error: function(err) {
+			response.error(err);
+		}
+	})
 });
 
