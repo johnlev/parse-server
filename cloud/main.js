@@ -4,9 +4,9 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 
 function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min)) + min;
 }
 
 // Returns a Promise for completion
@@ -80,8 +80,8 @@ Parse.Cloud.define('onSignUp', function(request, response) {
 		user.save();
 		response.success();
 	}).catch((error) => {
-		console.log("Somethine went wrong. Likely a problem with config: " + error);
-		response.error("Somethine went wrong. Likely a problem with config: " + error);
+		console.log("Somethine went wrong. Likely a problem with config: " + JSON.stringify(error));
+		response.error("Somethine went wrong. Likely a problem with config: " + JSON.stringify(error));
 	});
 });
 
