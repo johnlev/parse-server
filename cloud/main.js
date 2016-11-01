@@ -37,9 +37,10 @@ function calculateLeague(user, survey) {
 
 function chooseProfileImage(user) {
 	return new Promise((fulfill, reject) => {
-		var ProfilePic = Parse.Object.extend("ProfilePic")
+		var ProfilePic = Parse.Object.extend("ProfilePic");
+		var query = new Parse.Query(ProfilePic);
 		console.log("===> Counting...");
-		ProfilePic.count().then(function(numPics) {
+		query.count().then(function(numPics) {
 			console.log("===> Choosing...");
 
 			var index = getRandomInt(0, numPics)
