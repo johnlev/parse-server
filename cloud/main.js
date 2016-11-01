@@ -93,7 +93,7 @@ Parse.Cloud.define('onSignUp', function(request, response) {
 		console.log("Chose a profile picture!");
 		console.log("Resulting user:" + JSON.stringify(user));
 
-		console.log("Calculating League with values... freq:" + survey.frequency + ", int:" + survey.intensity);
+		console.log("Calculating League with values... freq:" + survey["frequency"] + ", int:" + survey["intensity"]);
 		return calculateLeague(user, survey);
 	}).then((user) => {
 		console.log("Done!");
