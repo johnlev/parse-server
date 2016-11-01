@@ -38,16 +38,22 @@ function calculateLeague(user, survey) {
 function chooseProfileImage(user) {
 	return new Promise((fulfill, reject) => {
 		var ProfilePic = Parse.Object.extend("ProfilePic")
+		console.log("===> Counting...");
 		ProfilePic.count().then(function(numPics) {
+			console.log("===> Choosing...");
 
 			var index = getRandomInt(0, numPics)
 			var pictureQuery = new Parse.Query(ProfilePic);
 			pictureQuery.equalTo("Index", index);
 			pictureQuery.find({
 				success: function(pictures) {
+
+					console.log("===> Setting...");
 					var picture = pictures[0]
 
 					user.set("picture", picture);
+
+					console.log("===> Done");
 					fulfill(user);
 				},
 				error: function() {
