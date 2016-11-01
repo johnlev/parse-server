@@ -11,6 +11,7 @@ function getRandomInt(min, max) {
 
 // Returns a Promise for completion
 function calculateLeague(user, survey) {
+	console.log("lets see...");
 	var frequency = survey.frequency
 	var intensity = survey.intensity
 	console.log("Calculating League with values... freq:" + frequency + ", int:" + intensity);
