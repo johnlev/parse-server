@@ -11,8 +11,10 @@ function getRandomInt(min, max) {
 
 // Returns a Promise for completion
 function calculateLeague(user, survey) {
-	var frequency = survey["frequency"]
+	var frequency = survey.frequency
 	var intensity = survey.intensity
+	console.log("Calculating League with values... freq:" + frequency + ", int:" + intensity);
+
 	return new Promise((fulfill, reject) => {
 		var leagueQuery = new Parse.Query("League")
 		leagueQuery.ascending("Level");
