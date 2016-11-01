@@ -84,6 +84,7 @@ Parse.Cloud.define('onSignUp', function(request, response) {
 	var survey = request["survey"];
 	console.log("survey: " + survey);
 
+	console.log(JSON.stringify(request));
 	if (userId == undefined || survey == undefined) {
 		response.error("Either userId or survey was undefined!");
 	}
