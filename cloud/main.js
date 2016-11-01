@@ -12,20 +12,24 @@ function getRandomInt(min, max) {
 // Returns a Promise for completion
 function calculateLeague(user, survey) {
 	var frequency = survey["frequency"]
-	var intensity = survey["intensity"]
+	var intensity = survey.intensity
 	return new Promise((fulfill, reject) => {
 		var leagueQuery = new Parse.Query("League")
 		leagueQuery.ascending("Level");
 		// Since we have no survey results, we will choose any league that exists
+		console.log("===> Finding leagues...");
 		leagueQuery.find({
 			success: function(leagues) {
+				console.log("===> Choosing...");
 				var league = null
 				if (intensity >= leagues.length)
 					league = leagues[leagues.length - 1]
 				else
 					league = leagues[intensity];
 
+				console.log("===> Setting...");
 				user.set("league", league);
+				console.log("===> Done");
 				fulfill(user);
 			},
 			error: function() {
