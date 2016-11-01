@@ -73,6 +73,7 @@ Parse.Cloud.define('onSignUp', function(request, response) {
 	query.get(userId, {
 		useMasterKey: true,
 	}).then((user) => {
+		console.log("Got a user! + " + JSON.stringify(user));
 		return chooseProfileImage(user);
 	}).then((user) => {
 		return calculateLeague(user, survey);
