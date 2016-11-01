@@ -128,6 +128,9 @@ Parse.Cloud.afterSave(Parse.User,  function(request, response) {
 				user.set(type, dictionary[type]);
 			}
 
+			user.set("numWorkouts", results.length);
+			user.save();
+
 			response.success();
 		},
 		error: function(err) {
