@@ -35,8 +35,8 @@ function calculateLeague(user, survey) {
 				console.log("===> Done");
 				fulfill(user);
 			},
-			error: function() {
-				fulfill(user);
+			error: function(error) {
+				reject(error);
 			}
 		})
 	});
@@ -70,7 +70,7 @@ function chooseProfileImage(user) {
 				}
 			});
 		}, function(error) {
-			reject(user);
+			reject(error);
 		});
 	});
 }
@@ -90,7 +90,8 @@ Parse.Cloud.define('onSignUp', function(request, response) {
 		console.log("Got a user! + " + JSON.stringify(user));
 		return chooseProfileImage(user);
 	}).then((user) => {
-		console.log("Chose a profile picture!")
+		console.log("Chose a profile picture!");
+		console.log("Resulting user:" + JSON.stringify(user));
 		return calculateLeague(user, survey);
 	}).then((user) => {
 		console.log("Done!");
