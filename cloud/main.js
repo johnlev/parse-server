@@ -78,13 +78,12 @@ function chooseProfileImage(user) {
 Parse.Cloud.define('onSignUp', function(request, response) {
 	// This function will take the survey results, store them in the given user, and then determine league and profile picture
 
-	var userId = request["userId"];
+	var userId = request.params["userId"];
 	console.log("User id: " + userId);
 	// We don't know yet what we are gonna ask, so no survey for now
-	var survey = request["survey"];
+	var survey = request.params["survey"];
 	console.log("survey: " + survey);
 
-	console.log(JSON.stringify(request));
 	if (userId == undefined || survey == undefined) {
 		response.error("Either userId or survey was undefined!");
 	}
