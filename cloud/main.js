@@ -81,7 +81,7 @@ Parse.Cloud.define('onSignUp', function(request, response) {
 	var userId = "0HQzJVjyO0";
 	console.log("User id: " + userId);
 	// We don't know yet what we are gonna ask, so no survey for now
-	var surveyInfo = request["survey"];
+	var survey = request["survey"];
 
 	var query = new Parse.Query(Parse.User);
 	query.get(userId, {
