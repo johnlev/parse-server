@@ -83,6 +83,7 @@ Parse.Cloud.define('onSignUp', function(request, response) {
 	}).then((user) => {
 		return calculateLeague(user, survey);
 	}).then((user) => {
+		user.set("completedSetup", true);
 		user.save();
 		response.success();
 	}).catch((error) => {
