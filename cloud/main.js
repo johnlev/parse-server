@@ -97,7 +97,7 @@ Parse.Cloud.define('calculateAchievements', function(request, response) {
 	
 });
 
-Parse.Cloud.afterSave(Parse.User, function(request, response) {
+Parse.Cloud.beforeSave(Parse.User, function(request, response) {
 	var user = request.object
 
 	var query = request.object.relation("pastWorkouts").query();
@@ -120,7 +120,6 @@ Parse.Cloud.afterSave(Parse.User, function(request, response) {
 			}
 
 			user.set("numWorkouts", results.length);
-			user.save(null, { sessionToken: request.user.getSessionToken() });
 
 			response.success();
 		},
