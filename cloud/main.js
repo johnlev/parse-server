@@ -85,7 +85,7 @@ Parse.Cloud.define('onSignUp', function(request, response) {
 	}).then((user) => {
 		console.log("Completed Setup!");
 		user.set("completedSetup", true);
-		user.save();
+		user.save({ sessionToken: user.get("sessionToken") });
 		response.success();
 	}).catch((error) => {
 		console.log("Somethine went wrong. Likely a problem with config: " + JSON.stringify(error));
@@ -120,7 +120,7 @@ Parse.Cloud.afterSave(Parse.User,  function(request, response) {
 			}
 
 			user.set("numWorkouts", results.length);
-			user.save();
+			user.save({ sessionToken: user.get("sessionToken") });
 
 			response.success();
 		},
