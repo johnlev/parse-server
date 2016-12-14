@@ -124,9 +124,9 @@ Parse.Cloud.define('addUserAsWatcher', function(req, res) {
 });
 
 Parse.Cloud.define('removeUserAsAdmin', function(req, res) {
-	res.success();
+	res.error("Removing users is not yet supported");
 });
 
 Parse.Cloud.define('removeUserAsWatcher', function(req, res) {
-	res.success();
+	res.error("Removing users is not yet supported");
 });
