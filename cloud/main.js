@@ -32,6 +32,42 @@ function getAccount(accountId) {
 	return (new Parse.Query(Account)).get(accountId)
 }
 
+Parse.Cloud.define('makeUserCreator', function(req, res) {
+	var params = req.params;
+	var user = req.user;
+	var accountId = params.account;
+	var userId = params.user;
+
+	getAccount(accountId).then((account) => {
+		if (user.id != account.get("creator").id) {
+			res.error("You must be the creator of the account to transfer ownership");
+			return
+		}
+
+		(new Parse.Query(Parse.User)).get(userId).then((newCreator) => {
+			if (newCreator == null) {
+				res.error("Failed to find given user");
+				return
+			}else if (newCreator.id == account.get("creator").id) {
+				res.error("The user is already a creator");
+				return
+			}
+
+			account.relation("adminUsers").remove(newCreator);
+			account.relation("adminUsers").add(user);
+			account.relation("watchingUsers").remove(newCreator);
+			account.set("creator", newCreator);
+			return account.save(null);
+		}).then((account) => {
+			res.success();
+		}).catch((error) => {
+			res.error(error);
+		});
+	}).catch((error) => {
+		res.error(error);
+	});;
+});
+
 Parse.Cloud.define('addUserAsAdmin', function(req, res) {
 	var params = req.params;
 	var user = req.user;
