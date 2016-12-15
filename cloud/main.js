@@ -59,7 +59,7 @@ Parse.Cloud.define('makeUserCreator', function(req, res) {
 			account.set("creator", newCreator);
 			return account.save(null);
 		}).then((account) => {
-			res.success();
+			res.success("success");
 		}).catch((error) => {
 			res.error(error);
 		});
